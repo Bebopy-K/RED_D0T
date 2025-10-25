@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://h6phocsdargf"]
+
+[ext_resource type="Script" uid="uid://cn5gtsgog5fi8" path="res://Main.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dtlat2eqbrfjk" path="res://assets/background/black.jpg" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://vjggxceeddom" path="res://camera.tscn" id="3_h2yge"]
+
+[sub_resource type="Environment" id="Environment_7mycd"]
+background_mode = 3
+background_energy_multiplier = 7.18
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 5.61
+glow_strength = 0.9
+glow_bloom = 0.27
+glow_blend_mode = 1
+glow_hdr_threshold = 1.44
+glow_hdr_scale = 1.21
+glow_map_strength = 0.57
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_1bvp3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -661.0
+offset_top = -362.0
+offset_right = 2590.0
+offset_bottom = 1523.0
+texture = ExtResource("1_ig7tw")
+
+[node name="SpawnContainer" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1839, -21)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(126, -15)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1483, -22)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(308, -19)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1036, -22)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1329, -21)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(747, -21)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(510, -19)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(897, -21)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1673, -21)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1188, -23)
+
+[node name="Enemy_Parent" type="Node2D" parent="."]
+position = Vector2(-1, -1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7mycd")
+
+[node name="Camera" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(959, 541)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

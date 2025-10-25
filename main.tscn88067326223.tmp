@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=3 uid="uid://h6phocsdargf"]
+
+[ext_resource type="Script" uid="uid://cn5gtsgog5fi8" path="res://Main.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dtlat2eqbrfjk" path="res://assets/background/black.jpg" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://vjggxceeddom" path="res://camera.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c7l87nkckikcw" path="res://stopwatch.tscn" id="3_lquwl"]
+[ext_resource type="FontFile" uid="uid://bwcsn4jd4cuub" path="res://assets/font/Deus EX Console.ttf" id="4_1bvp3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7mycd"]
+
+[sub_resource type="Environment" id="Environment_7mycd"]
+background_mode = 3
+background_energy_multiplier = 7.18
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 3.56
+glow_strength = 0.88
+glow_bloom = 1.0
+glow_blend_mode = 0
+glow_hdr_threshold = 1.44
+glow_hdr_scale = 1.21
+glow_map_strength = 0.57
+adjustment_enabled = true
+adjustment_brightness = 1.06
+adjustment_contrast = 1.2
+adjustment_saturation = 2.76
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(1924, 20)
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("stopwatch_label")]
+script = ExtResource("1_1bvp3")
+stopwatch_label = NodePath("CanvasLayer/VBoxContainer/Middle/TimerLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -652.0
+offset_top = -311.0
+offset_right = 2599.0
+offset_bottom = 1574.0
+texture = ExtResource("1_ig7tw")
+
+[node name="SpawnContainer" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1839, -21)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(126, -21)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(315, -25)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(490, -22)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1648, -21)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1448, -20)
+
+[node name="Enemy_Parent" type="Node2D" parent="."]
+position = Vector2(-1, -1)
+
+[node name="Stopwatch" parent="." groups=["stopwatch"] instance=ExtResource("3_lquwl")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="Camera" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(959, 541)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Top" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+y_sort_enabled = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="DifficultyLabel" type="Label" parent="CanvasLayer/VBoxContainer/Top"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 25
+text = "Difficulty: "
+
+[node name="DifficultyLabel2" type="Label" parent="CanvasLayer/VBoxContainer/Top"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 25
+text = "0"
+
+[node name="Middle" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/VBoxContainer/Middle"]
+y_sort_enabled = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 25
+text = "00:00:000"
+label_settings = SubResource("LabelSettings_7mycd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+alignment = 1
+
+[node name="EnemyScore" type="Label" parent="CanvasLayer/VBoxContainer/Bottom"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 25
+text = "Score: "
+
+[node name="EnemyScore2" type="Label" parent="CanvasLayer/VBoxContainer/Bottom"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 25
+text = "0"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7mycd")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(18, 1091)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(943, 3)
+shape = SubResource("RectangleShape2D_lquwl")
+one_way_collision_margin = 0.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_difficulty_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

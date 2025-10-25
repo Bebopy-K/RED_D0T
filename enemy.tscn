@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4icha1w3vall"]
+
+[ext_resource type="Shader" uid="uid://356ti6hsdni6" path="res://enemy.gdshader" id="1_epg4t"]
+[ext_resource type="Texture2D" uid="uid://bs15s27truhvw" path="res://assets/character/enemy/Red_Dot_Expand.png" id="1_qi2p4"]
+[ext_resource type="Script" uid="uid://w2mmkhtodpac" path="res://Enemy.gd" id="2_iifgy"]
+[ext_resource type="FontFile" uid="uid://bwcsn4jd4cuub" path="res://assets/font/Deus EX Console.ttf" id="3_epg4t"]
+[ext_resource type="PackedScene" uid="uid://carik1cgpx12y" path="res://DeathParticle_RED.tscn" id="3_iifgy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_epg4t"]
+shader = ExtResource("1_epg4t")
+shader_parameter/glow_color = Color(1, 0, 0.0431373, 1)
+shader_parameter/glow_power = 3.5
+shader_parameter/glow_shift = 2.9
+shader_parameter/glow_radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iifgy"]
+size = Vector2(38.25, 37.25)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("2_iifgy")
+deathParticle = ExtResource("3_iifgy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_epg4t")
+texture = ExtResource("1_qi2p4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -92.0
+offset_top = 1.0
+offset_right = 68.0
+offset_bottom = 41.0
+theme_override_fonts/normal_font = ExtResource("3_epg4t")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "type"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-13, -12)
+shape = SubResource("RectangleShape2D_iifgy")
+one_way_collision_margin = 0.0

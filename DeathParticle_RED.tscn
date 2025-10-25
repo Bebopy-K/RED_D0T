@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://carik1cgpx12y"]
+
+[ext_resource type="Shader" uid="uid://356ti6hsdni6" path="res://enemy.gdshader" id="1_2wqpe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_knxpj"]
+shader = ExtResource("1_2wqpe")
+shader_parameter/glow_color = Color(1, 0, 0, 0.556863)
+shader_parameter/glow_power = 2.9
+shader_parameter/glow_shift = 0.9
+shader_parameter/glow_radius = 2.0
+
+[sub_resource type="Gradient" id="Gradient_xq6xi"]
+offsets = PackedFloat32Array(0.541311, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tb4tw"]
+gradient = SubResource("Gradient_xq6xi")
+
+[sub_resource type="Curve" id="Curve_5jtns"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6vjm2"]
+width = 2048
+curve = SubResource("Curve_5jtns")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i4r47"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 4
+emission_point_count = 1
+angle_min = 1.07288e-05
+angle_max = 2.60001
+spread = 180.0
+initial_velocity_min = 492.65
+initial_velocity_max = 601.91
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 700, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_6vjm2")
+scale_over_velocity_min = 823.53
+scale_over_velocity_max = 823.53
+color_ramp = SubResource("GradientTexture1D_tb4tw")
+anim_speed_min = 14.71
+anim_speed_max = 14.71
+turbulence_noise_strength = 2.55
+turbulence_noise_scale = 1.6
+turbulence_noise_speed_random = 4.0
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 0, 0, 1)
+material = SubResource("ShaderMaterial_knxpj")
+emitting = false
+amount = 500
+amount_ratio = 0.3733
+lifetime = 2.07
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+use_fixed_seed = true
+seed = 1473918637
+fixed_fps = 60
+collision_base_size = 15.87
+process_material = SubResource("ParticleProcessMaterial_i4r47")
